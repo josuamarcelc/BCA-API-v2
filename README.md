@@ -19,3 +19,5 @@ $payload = array(
     );
 echo $BCA->getStatements($payload);
 ```
+
+[![josuamarcelc](http://stackexchange.com/users/flair/1702393.png)](http://stackexchange.com/users/1702393)
