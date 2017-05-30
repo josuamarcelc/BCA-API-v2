@@ -1,13 +1,13 @@
 <?php
-sys::import("guzzle.vendor.autoload");
+require 'guzzle/vendor/autoload.php';
 class BCA_API{
     private static $hostUrl = 'https://sandbox.bca.co.id';
     // private static $hostUrl = 'https://devapi.klikbca.com:8066';
     // private static $hostUrl = 'https://api.klikbca.com:8065';
-    private static $clientID = ''; //your Client ID
-    private static $clientSecret = ''; //your Client Secret
-    private static $APIKey = ''; //your API Key
-    private static $APISecret = ''; //your API Secret
+    private static $clientID = '98ae0b40-d511-4ca5-9de0-e849314ef5d3';
+    private static $clientSecret = '2d211ec8-4270-4e0d-97c0-6f37ae571a30';
+    private static $APIKey = '35a6a8b7-ef6f-4d6d-a076-3fd9ad562a25';
+    private static $APISecret = '45e20c7a-e681-434b-bafb-bbf37c5a7395';
     private static $accessToken = null;
     private static $timeStamp = null;
     private static $client;
@@ -34,7 +34,6 @@ class BCA_API{
     }
 
     private function getSignature($HTTPMethod, $relativeUrl, $RequestBody = ''){
-        if(is_string($RequestBody)) throw new Exception("RequestBody data tidak diketahui");
         $RequestBody = strtolower(hash('sha256', $RequestBody));
         $StringToSign = $HTTPMethod . ":" . $relativeUrl . ":" . self::$accessToken . ":" . $RequestBody . ":" . self::$timeStamp;
         $signature = hash_hmac('sha256', $StringToSign, self::$APISecret);
@@ -42,23 +41,12 @@ class BCA_API{
     }
 
     public function getStatements($payload = array()){
-        // if(empty($payload['start_date']) || (3 == (count(explode("-", $payload['start_date'])))))
-        //     throw new Exception("Format start_date tidak diketahui");
-        // if(empty($payload['end_date']) || (3 == (count(explode("-", $payload['end_date'])))))
-        //     throw new Exception("Format end_date tidak diketahui");
-        // if(empty($payload['account_number'])) throw new Exception("Format account_number tidak diketahui");
-        // if(empty($payload['corporate_id'])) throw new Exception("Format corporate_id tidak diketahui");
 
-        $accountNumber = (empty($payload['account_number'])) ? '0201245680' : $payload['account_number'];
-        $corporateID = (empty($payload['corporate_id'])) ? 'BCAAPI2016' : $payload['corporate_id'];
-        $accountNumber = (empty($payload['account_number'])) ? '2016-09-01' : $payload['account_number'];
-        $corporateID = (empty($payload['corporate_id'])) ? '2016-09-01' : $payload['corporate_id'];
-
-        $path = '/banking/v2/corporates/'. $payload['corporate_id'] .
-                '/accounts/' . $payload['account_number'] .
+        $path = '/banking/v2/corporates/'. $corporateID .
+                '/accounts/' . $accountNumber .
                 '/statements?' .
-                'EndDate=' . $payload['end_date'] .
-                '&StartDate=' . $payload['start_date'];
+                'EndDate=' . $endDate .
+                '&StartDate=' . $startDate;
         $method = 'GET';
 
         $output = self::$client->request($method, self::$hostUrl . $path, [
@@ -72,8 +60,12 @@ class BCA_API{
                  'X-BCA-Signature' => $this->getSignature($method, $path),
             ]
         ]);
-        echo $output->getBody();
-        exit;
+        // echo '<pre>';
+        // print_r(json_decode($output->getBody(), true));
+        // echo '</pre>';
+        // echo $output->getBody(); // response
+        // exit;
+        return $output->getBody();
     }
 
     public function getForex($payload = array()){
@@ -95,7 +87,29 @@ class BCA_API{
                  'X-BCA-Signature' => $this->getSignature($method, $path),
             ]
         ]);
-        echo $output->getBody();
-        exit;
+        // echo '<pre>';
+        // print_r(json_decode($output->getBody(), true));
+        // echo '</pre>';
+        // echo $output->getBody(); // response
+        return $output->getBody();
     }
 }
+
+
+$BCA = new BCA_API();
+
+$payload = array(
+        'account_number' => 'E-RATE',
+        'symbol_currency' => 'AUD'
+    );
+echo $BCA->getForex($payload);
+
+$payload = array(
+        'corporate_id' => 'BCAAPI2016',
+        'account_number' => '0201245680',
+        'start_date' => '2016-09-01',
+        'end_date' => '2016-09-01'
+    );
+
+echo $BCA->getStatements($payload);
+
