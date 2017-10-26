@@ -42,11 +42,11 @@ class BCA_API{
 
     public function getStatements($payload = array()){
 
-        $path = '/banking/v2/corporates/'. $corporateID .
-                '/accounts/' . $accountNumber .
+        $path = '/banking/v2/corporates/'. $payload['corporate_id'] .
+                '/accounts/' . $payload['account_number'] .
                 '/statements?' .
-                'EndDate=' . $endDate .
-                '&StartDate=' . $startDate;
+                'EndDate=' . $payload['end_date'] .
+                '&StartDate=' . $payload['start_date'];
         $method = 'GET';
 
         $output = self::$client->request($method, self::$hostUrl . $path, [
@@ -98,18 +98,18 @@ class BCA_API{
 
 $BCA = new BCA_API();
 
-$payload = array(
-        'account_number' => 'E-RATE',
-        'symbol_currency' => 'AUD'
-    );
-echo $BCA->getForex($payload);
+// $payload = array(
+//         'account_number' => 'E-RATE',
+//         'symbol_currency' => 'AUD'
+//     );
+// echo $BCA->getForex($payload);
 
 $payload = array(
         'corporate_id' => 'BCAAPI2016',
         'account_number' => '0201245680',
-        'start_date' => '2016-09-01',
+        'start_date' => '2016-08-29',
         'end_date' => '2016-09-01'
     );
-
+echo '<pre>';
 echo $BCA->getStatements($payload);
 
