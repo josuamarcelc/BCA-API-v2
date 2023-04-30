@@ -4,10 +4,10 @@ class BCA_API{
     private static $hostUrl = 'https://sandbox.bca.co.id';
     // private static $hostUrl = 'https://devapi.klikbca.com:8066';
     // private static $hostUrl = 'https://api.klikbca.com:8065';
-    private static $clientID = '98ae0b40-d511-4ca5-9de0-e849314ef5d3';
-    private static $clientSecret = '2d211ec8-4270-4e0d-97c0-6f37ae571a30';
-    private static $APIKey = '35a6a8b7-ef6f-4d6d-a076-3fd9ad562a25';
-    private static $APISecret = '45e20c7a-e681-434b-bafb-bbf37c5a7395';
+    private static $clientID = '98ae0b40-d511-4ca5-9de0-xxx';
+    private static $clientSecret = '2d211ec8-4270-4e0d-97c0-xxx';
+    private static $APIKey = '35a6a8b7-ef6f-4d6d-a076-xxx';
+    private static $APISecret = '45e20c7a-e681-434b-bafb-xxx';
     private static $accessToken = null;
     private static $timeStamp = null;
     private static $client;
