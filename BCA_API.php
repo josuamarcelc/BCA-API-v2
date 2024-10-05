@@ -4,10 +4,10 @@ class BCA_API{
     private static $hostUrl = 'https://sandbox.bca.co.id';
     // private static $hostUrl = 'https://devapi.klikbca.com:8066';
     // private static $hostUrl = 'https://api.klikbca.com:8065';
-    private static $clientID = '98ae0b40-d511-4ca5-9de0-xxx';
-    private static $clientSecret = '2d211ec8-4270-4e0d-97c0-xxx';
-    private static $APIKey = '35a6a8b7-ef6f-4d6d-a076-xxx';
-    private static $APISecret = '45e20c7a-e681-434b-bafb-xxx';
+    private static $clientID = 'xxxxxxxx-xxxx-xxxx-xxxx-xxx';
+    private static $clientSecret = 'xxxxxxxx-xxxx-xxxx-xxxx-xxx';
+    private static $APIKey = 'xxxxxxxx-xxxx-xxxx-xxxx-xxx';
+    private static $APISecret = 'xxxxxxxx-xxxx-xxxx-xxxx-xxx';
     private static $accessToken = null;
     private static $timeStamp = null;
     private static $client;
@@ -60,11 +60,6 @@ class BCA_API{
                  'X-BCA-Signature' => $this->getSignature($method, $path),
             ]
         ]);
-        // echo '<pre>';
-        // print_r(json_decode($output->getBody(), true));
-        // echo '</pre>';
-        // echo $output->getBody(); // response
-        // exit;
         return $output->getBody();
     }
 
@@ -87,26 +82,15 @@ class BCA_API{
                  'X-BCA-Signature' => $this->getSignature($method, $path),
             ]
         ]);
-        // echo '<pre>';
-        // print_r(json_decode($output->getBody(), true));
-        // echo '</pre>';
-        // echo $output->getBody(); // response
         return $output->getBody();
     }
 }
 
 
 $BCA = new BCA_API();
-
-// $payload = array(
-//         'account_number' => 'E-RATE',
-//         'symbol_currency' => 'AUD'
-//     );
-// echo $BCA->getForex($payload);
-
 $payload = array(
-        'corporate_id' => 'BCAAPI2016',
-        'account_number' => '0201245680',
+        'corporate_id' => 'BCAXXXXXXX',
+        'account_number' => 'XXXXXXXXXX',
         'start_date' => '2016-08-29',
         'end_date' => '2016-09-01'
     );
