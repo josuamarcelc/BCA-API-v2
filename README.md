@@ -8,14 +8,14 @@ Bank BCA API v2 Generate Signature, Generate Token with PHP to get Statements an
 $BCA = new BCA_API();
 $payload = array(
         'account_number' => 'E-RATE',
-        'symbol_currency' => 'AUD'
+        'symbol_currency' => 'USD'
     );
 echo $BCA->getForex($payload);
 $payload = array(
-        'corporate_id' => 'BCAAPI2016',
-        'account_number' => '0201245680',
-        'start_date' => '2016-09-01',
-        'end_date' => '2016-09-01'
+        'corporate_id' => 'BCAXXXXXXX',
+        'account_number' => 'XXXXXXXXXX',
+        'start_date' => '2024-09-01',
+        'end_date' => '2024-09-30'
     );
 echo $BCA->getStatements($payload);
 ```
